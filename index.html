@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cicy K. Agnes — AI Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #c8f060;
+      --accent2: #6090f0;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+      --card: #13131c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(96,144,240,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(200,240,96,0.06) 0%, transparent 60%);
+    }
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.0;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+    .hero-tagline {
+      margin-top: 2rem;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-links {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: #d9ff70; transform: translateY(-1px); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; right: 4rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+      writing-mode: vertical-rl;
+      animation: fadeUp 1s 1.2s both;
+    }
+    .hero-scroll::before {
+      content: ''; display: block;
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--muted));
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; position: relative; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      border-radius: 4px;
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+    /* ── EXPERIENCE ── */
+    #experience { border-top: 1px solid var(--border); background: var(--surface); }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-meta { }
+    .timeline-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .timeline-place { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+    .timeline-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-content ul {
+      margin-top: 0.75rem;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .timeline-content li { margin-bottom: 0.4rem; }
+    .timeline-content li strong { color: var(--accent2); font-weight: 500; }
+
+    /* ── PUBLICATIONS ── */
+    #publications { border-top: 1px solid var(--border); }
+    .pub-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .pub-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent2);
+      padding: 1.5rem 1.75rem;
+      border-radius: 0 4px 4px 0;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pub-card:hover { border-left-color: var(--accent); transform: translateX(4px); }
+    .pub-venue {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .pub-title { font-size: 0.95rem; font-weight: 500; color: var(--text); }
+    .pub-year { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* ── SKILLS ── */
+    #skills { border-top: 1px solid var(--border); background: var(--surface); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      border-radius: 4px;
+    }
+    .skill-group-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--border);
+      border: 1px solid #2a2a3e;
+      border-radius: 2px;
+      color: var(--text);
+    }
+
+    /* ── CONTACT ── */
+    #contact { border-top: 1px solid var(--border); text-align: center; }
+    #contact h2 { margin-bottom: 1rem; }
+    .contact-sub { color: var(--muted); margin-bottom: 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">CKA</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div style="position:relative;">
+      <p class="hero-label">AI Researcher · DFKI · Saarbrücken</p>
+      <h1>Cicy K.<br><em>Agnes</em></h1>
+      <p class="hero-tagline">
+        Junior Researcher at the German Research Center for Artificial Intelligence —
+        working on sustainable AI, LLM fidelity, and energy-efficient data center operations.
+      </p>
+      <div class="hero-links">
+        <a href="#publications" class="btn btn-primary">View Publications</a>
+        <a href="mailto:cicyagnes@gmail.com" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label reveal">About</p>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2>Building the future of<br><em>responsible AI</em></h2>
+        <p>
+          I'm a researcher and engineer passionate about making AI systems smarter, more honest, and more sustainable.
+          My work spans <strong>LLM evaluation</strong>, <strong>sustainable computing</strong>, and <strong>personalized AI systems</strong>.
+        </p>
+        <p>
+          Currently at <strong>DFKI</strong>, I lead development on <strong>EAVE</strong> — a decision-support system for measuring and optimizing energy consumption and CO₂ emissions of AI workloads in data centers.
+        </p>
+        <p>
+          I hold a Master's in Computer Science from <strong>Universität des Saarlandes</strong> and a B.Tech from <strong>Cochin University of Science and Technology</strong>.
+        </p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">41%</div>
+          <div class="stat-label">GPU Energy Reduction</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years at DFKI</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">AAAI<br>NeurIPS</div>
+          <div class="stat-label">Top Venues</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="reveal">Where I've <em>worked</em></h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">
+          <div class="timeline-period">2024 – Present</div>
+          <div class="timeline-place">DFKI, Saarbrücken</div>
+        </div>
+        <div class="timeline-content">
+          <h3>Junior Researcher</h3>
+          <p style="color:var(--muted); font-size:0.9rem;">German Research Center for Artificial Intelligence</p>
+          <ul>
+            <li>Lead end-to-end research: problem formulation, experimental design, implementation, and evaluation.</li>
+            <li><strong>Developer Lead for EAVE</strong> — measures, predicts, and optimizes energy, CO₂, and operational costs of AI/LLM workloads in data centers.</li>
+            <li>Drive publications for top-tier conferences and journals; contribute to manuscripts and reproducibility.</li>
+            <li>Represent DFKI at major European events: Hannover Messe, Berlin GreenTech Festival.</li>
+            <li>Support research proposal development and grant writing (e.g., BMBF).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">
+          <div class="timeline-period">2023 – 2024</div>
+          <div class="timeline-place">DFKI, Saarbrücken</div>
+        </div>
+        <div class="timeline-content">
+          <h3>Research Assistant</h3>
+          <p style="color:var(--muted); font-size:0.9rem;">German Research Center for Artificial Intelligence</p>
+          <ul>
+            <li>Contributed to prototype development, data processing, model training, benchmarking, and error analysis.</li>
+            <li>Co-authored publications across AI systems, LLM fidelity, sustainable computing, and healthcare.</li>
+            <li>Assisted in drafting research proposals for national funding calls.</li>
+            <li>Presented papers at academic conferences and workshops internationally.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <p class="section-label reveal">Research</p>
+    <h2 class="reveal">Selected <em>Publications</em></h2>
+    <div class="pub-grid">
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">CAiSE 2026</div>
+        <div class="pub-title">Towards Decision Support Systems for Cost-effective and Energy-efficient AI Operations in Data Centers</div>
+        <div class="pub-year">2026</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">2026</div>
+        <div class="pub-title">Safety-Constrained Contextual Bandit for Dynamic Power Management — 41.2% GPU energy reduction on Azure LLM inference traces</div>
+        <div class="pub-year">2026</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">CAiSE 2025</div>
+        <div class="pub-title">ESCADE: Energy-efficient Artificial Intelligence for Cost-effective and Sustainable Data Centers</div>
+        <div class="pub-year">2025</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">CAiSE 2025</div>
+        <div class="pub-title">FEDWELL: Life-Long Federated User and Mental Modeling for Health and Well-being</div>
+        <div class="pub-year">2025</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">Bundesgesundheitsblatt / SpringerNature 2025</div>
+        <div class="pub-title">AI in rehabilitation — application of artificial mental models for personalized medicine</div>
+        <div class="pub-year">2025</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">ICIS 2024</div>
+        <div class="pub-title">Semantic priming via knowledge graphs to analyze and treat language model's honest lies — DualEval method for hallucination detection</div>
+        <div class="pub-year">2024</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">NeurIPS 2024 · Women in ML Workshop</div>
+        <div class="pub-title">From Stateless to Adaptive: Dynamic Personalization for Conversational Language Models</div>
+        <div class="pub-year">2024</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">ECIS 2024</div>
+        <div class="pub-title">Plan generation from unstructured documents through transformer-based extraction of knowledge graphs (PlanKG)</div>
+        <div class="pub-year">2024</div>
+      </div>
+
+      <div class="pub-card reveal">
+        <div class="pub-venue">AAAI Summer Symposium 2023</div>
+        <div class="pub-title">SNOOP Method: Faithfulness of Text Summarizations for Single Nucleotide Polymorphisms</div>
+        <div class="pub-year">2023</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label reveal">Expertise</p>
+    <h2 class="reveal">Technical <em>Skills</em></h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">AI & ML</div>
+        <div class="skill-tags">
+          <span class="skill-tag">LLM Fine-tuning</span>
+          <span class="skill-tag">LLM Evaluation</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">Knowledge Graphs</span>
+          <span class="skill-tag">Quantization</span>
+          <span class="skill-tag">Distillation</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Keras</span>
+          <span class="skill-tag">Streamlit</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">C / C++</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Research</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Sustainable AI</span>
+          <span class="skill-tag">Federated Learning</span>
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Grant Writing</span>
+          <span class="skill-tag">Reproducibility</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="reveal">Let's <em>connect</em></h2>
+    <p class="contact-sub reveal">Open to collaborations, speaking opportunities, and research discussions.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:cicyagnes@gmail.com" class="btn btn-primary">cicyagnes@gmail.com</a>
+      <a href="https://linkedin.com/in/cicykagnes" class="btn btn-outline" target="_blank">LinkedIn</a>
+      <a href="https://github.com/cicykagnes" class="btn btn-outline" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Cicy K. Agnes</span>
+    <span>Saarbrücken, Germany · (+49) 176 29176344</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
