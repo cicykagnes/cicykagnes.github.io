@@ -2,580 +2,1102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cicy K. Agnes — AI Researcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cicy K. Agnes | Women in Computer Science</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --border: #1e1e2e;
-      --accent: #c8f060;
-      --accent2: #6090f0;
-      --text: #e8e8f0;
-      --muted: #7070a0;
-      --card: #13131c;
+      --bg: #fff7fb;
+      --bg-soft: #fff0f7;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: #ffffff;
+      --text: #332235;
+      --muted: #735f76;
+      --pink: #ff79b0;
+      --hot-pink: #ff4f9a;
+      --lavender: #b79cff;
+      --purple: #7b61ff;
+      --peach: #ffc6a8;
+      --mint: #94e5c3;
+      --border: rgba(255, 121, 176, 0.22);
+      --shadow: 0 24px 70px rgba(255, 79, 154, 0.16);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      background: var(--bg);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 121, 176, 0.22), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(183, 156, 255, 0.25), transparent 30%),
+        radial-gradient(circle at 70% 86%, rgba(255, 198, 168, 0.28), transparent 34%),
+        linear-gradient(135deg, #fff7fb 0%, #fff1f8 45%, #f8f3ff 100%);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
+      font-family: "DM Sans", sans-serif;
       line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* ── NOISE TEXTURE ── */
     body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: 0.4;
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 121, 176, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 121, 176, 0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+      z-index: -1;
     }
 
-    /* ── NAV ── */
+    a {
+      color: inherit;
+    }
+
+    .sparkle {
+      color: var(--hot-pink);
+    }
+
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(10,10,15,0.85);
-      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px clamp(20px, 5vw, 72px);
+      background: rgba(255, 247, 251, 0.78);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
-      z-index: 100;
     }
+
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.05em;
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Playfair Display", serif;
+      font-weight: 800;
+      font-size: 1.12rem;
+      letter-spacing: 0.02em;
+      color: var(--hot-pink);
     }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-logo span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--lavender));
+      color: white;
+      box-shadow: 0 10px 24px rgba(255, 79, 154, 0.25);
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      list-style: none;
+      align-items: center;
+    }
+
     .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
       text-decoration: none;
-      transition: color 0.2s;
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      transition: 0.2s ease;
     }
-    .nav-links a:hover { color: var(--accent); }
 
-    /* ── HERO ── */
-    #hero {
+    .nav-links a:hover {
+      color: var(--hot-pink);
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 4rem 6rem;
-      position: relative;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 54px;
+      align-items: center;
+      padding: 132px 0 80px;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(96,144,240,0.12) 0%, transparent 60%),
-                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(200,240,96,0.06) 0%, transparent 60%);
-    }
-    .hero-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--accent);
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      margin-bottom: 22px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
+      box-shadow: 0 12px 32px rgba(255, 79, 154, 0.08);
     }
+
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      line-height: 1.0;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(3.5rem, 8vw, 7.7rem);
+      line-height: 0.93;
+      letter-spacing: -0.055em;
+      color: var(--text);
+      margin-bottom: 24px;
     }
-    h1 em {
-      font-style: italic;
-      color: var(--accent2);
+
+    h1 .gradient-text,
+    h2 .gradient-text {
+      background: linear-gradient(90deg, var(--hot-pink), var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    .hero-tagline {
-      margin-top: 2rem;
-      max-width: 560px;
+
+    .hero-subtitle {
+      max-width: 650px;
       color: var(--muted);
-      font-size: 1.05rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
-    }
-    .hero-links {
-      margin-top: 2.5rem;
-      display: flex; gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.8s forwards;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #0a0a0f;
-      font-weight: 500;
-    }
-    .btn-primary:hover { background: #d9ff70; transform: translateY(-1px); }
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
-
-    .hero-scroll {
-      position: absolute; bottom: 2rem; right: 4rem;
-      display: flex; align-items: center; gap: 0.75rem;
-      font-family: 'DM Mono', monospace; font-size: 0.65rem;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
-      writing-mode: vertical-rl;
-      animation: fadeUp 1s 1.2s both;
-    }
-    .hero-scroll::before {
-      content: ''; display: block;
-      width: 1px; height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--muted));
+      font-size: 1.12rem;
+      margin-bottom: 28px;
     }
 
-    /* ── SECTIONS ── */
-    section { padding: 7rem 4rem; position: relative; }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 3rem;
-    }
-
-    /* ── ABOUT ── */
-    #about { border-top: 1px solid var(--border); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-text p { color: var(--muted); margin-bottom: 1rem; }
-    .about-text p strong { color: var(--text); font-weight: 500; }
-    .about-stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 1.75rem;
-      border-radius: 4px;
-    }
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-    .stat-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
-
-    /* ── EXPERIENCE ── */
-    #experience { border-top: 1px solid var(--border); background: var(--surface); }
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 2rem;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-meta { }
-    .timeline-period {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-    .timeline-place { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
-    .timeline-content h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-    .timeline-content ul {
-      margin-top: 0.75rem;
-      padding-left: 1.2rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    .timeline-content li { margin-bottom: 0.4rem; }
-    .timeline-content li strong { color: var(--accent2); font-weight: 500; }
-
-    /* ── PUBLICATIONS ── */
-    #publications { border-top: 1px solid var(--border); }
-    .pub-grid { display: flex; flex-direction: column; gap: 1rem; }
-    .pub-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent2);
-      padding: 1.5rem 1.75rem;
-      border-radius: 0 4px 4px 0;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .pub-card:hover { border-left-color: var(--accent); transform: translateX(4px); }
-    .pub-venue {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-    .pub-title { font-size: 0.95rem; font-weight: 500; color: var(--text); }
-    .pub-year { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
-
-    /* ── SKILLS ── */
-    #skills { border-top: 1px solid var(--border); background: var(--surface); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-    .skill-group {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 1.75rem;
-      border-radius: 4px;
-    }
-    .skill-group-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.3rem 0.75rem;
-      background: var(--border);
-      border: 1px solid #2a2a3e;
-      border-radius: 2px;
+    .hero-subtitle strong {
       color: var(--text);
     }
 
-    /* ── CONTACT ── */
-    #contact { border-top: 1px solid var(--border); text-align: center; }
-    #contact h2 { margin-bottom: 1rem; }
-    .contact-sub { color: var(--muted); margin-bottom: 2.5rem; }
-    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 4rem;
-      display: flex; justify-content: space-between; align-items: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-family: "Space Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+      box-shadow: 0 18px 34px rgba(255, 79, 154, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 44px rgba(255, 79, 154, 0.36);
+    }
+
+    .btn-outline {
+      color: var(--hot-pink);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 79, 154, 0.45);
+      background: white;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 18px;
+      border-radius: 42px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 240, 247, 0.7)),
+        linear-gradient(135deg, rgba(255, 121, 176, 0.2), rgba(183, 156, 255, 0.2));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "✦";
+      position: absolute;
+      color: var(--hot-pink);
+      font-size: 2rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-card::before {
+      top: -22px;
+      right: 30px;
+    }
+
+    .hero-card::after {
+      bottom: 16px;
+      left: -16px;
+      color: var(--lavender);
+      animation-delay: 1.2s;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background: linear-gradient(135deg, #ffe1ef, #eee6ff);
+      min-height: 470px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      min-height: 470px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-placeholder {
+      padding: 40px;
+      text-align: center;
       color: var(--muted);
+    }
+
+    .photo-placeholder .icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .photo-placeholder strong {
+      display: block;
+      color: var(--text);
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+    }
+
+    .floating-badge {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 121, 176, 0.22);
+      box-shadow: 0 16px 40px rgba(123, 97, 255, 0.14);
+    }
+
+    .floating-badge p:first-child {
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .floating-badge p:last-child {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    section {
+      padding: 86px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 38px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
     }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .glass-card {
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .about-copy {
+      padding: 34px;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 1.02rem;
+    }
+
+    .about-copy strong {
+      color: var(--text);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat {
+      padding: 26px;
+      min-height: 150px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: "Playfair Display", serif;
+      font-size: 2.35rem;
+      line-height: 1;
+      color: var(--hot-pink);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .women-cs {
+      padding: 34px;
+      margin-top: 28px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255, 121, 176, 0.16), rgba(183, 156, 255, 0.16)),
+        rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--border);
+    }
+
+    .women-cs h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .women-cs p {
+      color: var(--muted);
+      max-width: 850px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 26px;
+      padding: 28px;
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(255, 79, 154, 0.09);
+    }
+
+    .period {
+      font-family: "Space Mono", monospace;
+      color: var(--hot-pink);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .place {
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 0.92rem;
+    }
+
+    .timeline-content h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.55rem;
+      margin-bottom: 6px;
+    }
+
+    .timeline-content .company {
+      color: var(--purple);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .timeline-content ul {
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .timeline-content li {
+      margin-bottom: 8px;
+    }
+
+    .timeline-content strong {
+      color: var(--text);
+    }
+
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pub-card {
+      padding: 26px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--border);
+      transition: 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pub-card::before {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      right: -28px;
+      top: -28px;
+      background: rgba(255, 121, 176, 0.16);
+    }
+
+    .pub-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 52px rgba(255, 79, 154, 0.14);
+      border-color: rgba(255, 79, 154, 0.38);
+    }
+
+    .pub-venue {
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .pub-title {
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .pub-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .skill-card {
+      padding: 26px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--border);
+    }
+
+    .skill-card h3 {
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255, 240, 247, 0.95);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .edu-card {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--border);
+    }
+
+    .edu-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+    }
+
+    .edu-card p {
+      color: var(--muted);
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 52px 30px;
+      background:
+        linear-gradient(135deg, rgba(255, 121, 176, 0.18), rgba(183, 156, 255, 0.2)),
+        rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h2 {
+      margin-bottom: 14px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 auto 28px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
     .reveal {
-      opacity: 0; transform: translateY(24px);
+      opacity: 0;
+      transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(8deg);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .about-grid,
+      .timeline-item,
+      .education-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pub-grid,
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .portrait-wrap {
+        min-height: 390px;
+      }
+
+      .portrait-wrap img {
+        min-height: 390px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        display: none;
+      }
+
+      .page {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        gap: 34px;
+      }
+
+      .hero-actions,
+      .contact-links {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .stats-grid,
+      .pub-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 68px 0;
+      }
+
+      .about-copy,
+      .women-cs,
+      .timeline-item,
+      .contact-card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
-<body>
 
-  <!-- NAV -->
+<body>
   <nav>
-    <div class="nav-logo">CKA</div>
+    <a class="nav-logo" href="#home" aria-label="Cicy K. Agnes home">
+      <span>CKA</span>
+      Cicy K. Agnes
+    </a>
+
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#publications">Publications</a></li>
+      <li><a href="#research">Research</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div style="position:relative;">
-      <p class="hero-label">AI Researcher · DFKI · Saarbrücken</p>
-      <h1>Cicy K.<br><em>Agnes</em></h1>
-      <p class="hero-tagline">
-        Junior Researcher at the German Research Center for Artificial Intelligence —
-        working on sustainable AI, LLM fidelity, and energy-efficient data center operations.
-      </p>
-      <div class="hero-links">
-        <a href="#publications" class="btn btn-primary">View Publications</a>
-        <a href="mailto:cicyagnes@gmail.com" class="btn btn-outline">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero-scroll">Scroll</div>
-  </section>
+  <main class="page">
+    <section class="hero" id="home">
+      <div>
+        <p class="eyebrow">✦ Women in Computer Science ✦ AI Researcher</p>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <p class="section-label reveal">About</p>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <h2>Building the future of<br><em>responsible AI</em></h2>
-        <p>
-          I'm a researcher and engineer passionate about making AI systems smarter, more honest, and more sustainable.
-          My work spans <strong>LLM evaluation</strong>, <strong>sustainable computing</strong>, and <strong>personalized AI systems</strong>.
+        <h1>
+          Cicy K.<br>
+          <span class="gradient-text">Agnes</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Junior Researcher at the <strong>German Research Center for Artificial Intelligence</strong>,
+          building sustainable, trustworthy, and human-centered AI systems.
         </p>
-        <p>
-          Currently at <strong>DFKI</strong>, I lead development on <strong>EAVE</strong> — a decision-support system for measuring and optimizing energy consumption and CO₂ emissions of AI workloads in data centers.
+
+        <p class="hero-subtitle">
+          My work brings together <strong>LLM evaluation</strong>, <strong>knowledge graphs</strong>,
+          <strong>sustainable AI</strong>, and <strong>energy-efficient data center operations</strong>.
         </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#research">View My Research</a>
+          <a class="btn btn-outline" href="mailto:cicyagnes@gmail.com">Email Me</a>
+          <a class="btn btn-outline" href="https://github.com/cicykagnes" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="portrait-wrap">
+          <!--
+            HOW TO ADD YOUR PICTURE:
+            1. Create a folder named "assets" in your GitHub repo.
+            2. Add your photo as "profile.jpg".
+            3. Then replace the placeholder below by uncommenting this line:
+
+            <img src="assets/profile.jpg" alt="Portrait of Cicy K. Agnes">
+
+            4. Delete or comment out the placeholder div.
+          -->
+
+          <!-- <img src="assets/profile.jpg" alt="Portrait of Cicy K. Agnes"> -->
+
+          <div class="photo-placeholder">
+            <span class="icon">👩‍💻</span>
+            <strong>Add your photo here</strong>
+            <p>Save your picture as <b>assets/profile.jpg</b>, then uncomment the image line in this section.</p>
+          </div>
+
+          <div class="floating-badge">
+            <p>Currently</p>
+            <p>Junior Researcher · DFKI · Saarbrücken, Germany</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-heading reveal">
+        <span class="section-label">About Me</span>
+        <h2>Making AI more <span class="gradient-text">responsible, efficient, and beautiful</span>.</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass-card about-copy reveal">
+          <p>
+            I am a computer science researcher and engineer passionate about building AI systems
+            that are useful, reliable, and sustainable.
+          </p>
+
+          <p>
+            At <strong>DFKI</strong>, I work on sustainable AI operations, LLM workloads, and decision-support
+            systems for measuring and optimizing <strong>energy consumption</strong>,
+            <strong>CO₂ emissions</strong>, and <strong>operational cost</strong> in data centers.
+          </p>
+
+          <p>
+            My research also explores <strong>LLM fidelity</strong>, <strong>hallucination detection</strong>,
+            <strong>knowledge graphs</strong>, <strong>federated learning</strong>, and personalized AI for
+            healthcare and well-being.
+          </p>
+
+          <p>
+            As a woman in computer science, I care deeply about inclusive research spaces,
+            mentorship, and making technology more accessible to everyone.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Research Publications</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-number">41.2%</div>
+              <div class="stat-label">GPU Energy Reduction</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-number">3+</div>
+              <div class="stat-label">Years at DFKI</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-number">AI</div>
+              <div class="stat-label">Sustainability + LLMs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="women-cs reveal">
+        <h3>For girls and women who code <span class="sparkle">✦</span></h3>
         <p>
-          I hold a Master's in Computer Science from <strong>Universität des Saarlandes</strong> and a B.Tech from <strong>Cochin University of Science and Technology</strong>.
+          Computer science is creative, powerful, and deeply human. I believe women belong in every
+          part of computing — from research labs and open-source communities to AI systems,
+          data centers, classrooms, startups, and leadership.
         </p>
       </div>
-      <div class="about-stats reveal">
-        <div class="stat-card">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Publications</div>
+    </section>
+
+    <section id="experience">
+      <div class="section-heading reveal">
+        <span class="section-label">Experience</span>
+        <h2>Research, engineering, and <span class="gradient-text">impact</span>.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <div>
+            <p class="period">2024 — Present</p>
+            <p class="place">Saarbrücken, Germany</p>
+          </div>
+
+          <div class="timeline-content">
+            <h3>Junior Researcher</h3>
+            <p class="company">German Research Center for Artificial Intelligence, DFKI</p>
+
+            <ul>
+              <li>Lead end-to-end research projects from problem formulation to empirical evaluation.</li>
+              <li><strong>Developer Lead for EAVE</strong>, a decision-support system for sustainable AI operations.</li>
+              <li>Measure, predict, and optimize energy consumption, CO₂ emissions, and operational costs of AI and LLM workloads.</li>
+              <li>Contribute to top-tier publications, reproducibility, and experimental proofing.</li>
+              <li>Represent DFKI at European innovation events including Hannover Messe and Berlin GreenTech Festival.</li>
+              <li>Support research proposals and grant writing for public funding agencies such as BMBF.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div>
+            <p class="period">2023 — 2024</p>
+            <p class="place">Saarbrücken, Germany</p>
+          </div>
+
+          <div class="timeline-content">
+            <h3>Research Assistant</h3>
+            <p class="company">German Research Center for Artificial Intelligence, DFKI</p>
+
+            <ul>
+              <li>Built prototypes and supported data processing, model training, benchmarking, and error analysis.</li>
+              <li>Co-authored publications across AI systems, LLM fidelity, sustainable computing, and healthcare.</li>
+              <li>Presented research at academic conferences and international workshops.</li>
+              <li>Supported proposal materials for national funding calls.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="section-heading reveal">
+        <span class="section-label">Selected Research</span>
+        <h2>Publications in <span class="gradient-text">AI, sustainability, and health</span>.</h2>
+      </div>
+
+      <div class="pub-grid">
+        <article class="pub-card reveal">
+          <p class="pub-venue">CAiSE · 2026</p>
+          <p class="pub-title">Towards Decision Support Systems for Cost-effective and Energy-efficient AI Operations in Data Centers</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">2026</p>
+          <p class="pub-title">Safety-Constrained Contextual Bandit for Dynamic Power Management</p>
+          <p class="pub-note">Reduced GPU energy consumption by up to 41.2% while largely maintaining tail latency behavior under SLO.</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">CAiSE · 2025</p>
+          <p class="pub-title">ESCADE: Energy-efficient Artificial Intelligence for Cost-effective and Sustainable Data Centers</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">CAiSE · 2025</p>
+          <p class="pub-title">FEDWELL: Life-Long Federated User and Mental Modeling for Health and Well-being</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">Bundesgesundheitsblatt · 2025</p>
+          <p class="pub-title">AI in Rehabilitation — Application of Artificial Mental Models for Personalized Medicine</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">ICIS · 2024</p>
+          <p class="pub-title">Semantic Priming via Knowledge Graphs to Analyze and Treat Language Model’s Honest Lies</p>
+          <p class="pub-note">Proposed DualEval for detecting and mitigating factual hallucinations in LLM outputs.</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">NeurIPS Women in ML Workshop · 2024</p>
+          <p class="pub-title">From Stateless to Adaptive: Dynamic Personalization for Conversational Language Models</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">ECIS · 2024</p>
+          <p class="pub-title">Plan Generation from Unstructured Documents through Transformer-Based Extraction of Knowledge Graphs</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">AAAI Summer Symposium · 2023</p>
+          <p class="pub-title">SNOOP Method: Faithfulness of Text Summarizations for Single Nucleotide Polymorphisms</p>
+        </article>
+
+        <article class="pub-card reveal">
+          <p class="pub-venue">IEEE · 2024</p>
+          <p class="pub-title">Spatial-Economic Analysis for Optimal Electric Vehicle Charging Station Placement</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-heading reveal">
+        <span class="section-label">Technical Skills</span>
+        <h2>My computer science <span class="gradient-text">toolkit</span>.</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <h3>AI + ML</h3>
+          <div class="tags">
+            <span class="tag">LLM Fine-tuning</span>
+            <span class="tag">LLM Evaluation</span>
+            <span class="tag">RAG</span>
+            <span class="tag">Knowledge Graphs</span>
+            <span class="tag">Quantization</span>
+            <span class="tag">Distillation</span>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">41%</div>
-          <div class="stat-label">GPU Energy Reduction</div>
+
+        <div class="skill-card reveal">
+          <h3>Programming</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">C</span>
+            <span class="tag">C++</span>
+            <span class="tag">R</span>
+            <span class="tag">SQL</span>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">3+</div>
-          <div class="stat-label">Years at DFKI</div>
+
+        <div class="skill-card reveal">
+          <h3>Frameworks</h3>
+          <div class="tags">
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">Keras</span>
+            <span class="tag">Streamlit</span>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">AAAI<br>NeurIPS</div>
-          <div class="stat-label">Top Venues</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <p class="section-label reveal">Experience</p>
-    <h2 class="reveal">Where I've <em>worked</em></h2>
-    <div class="timeline">
-
-      <div class="timeline-item reveal">
-        <div class="timeline-meta">
-          <div class="timeline-period">2024 – Present</div>
-          <div class="timeline-place">DFKI, Saarbrücken</div>
-        </div>
-        <div class="timeline-content">
-          <h3>Junior Researcher</h3>
-          <p style="color:var(--muted); font-size:0.9rem;">German Research Center for Artificial Intelligence</p>
-          <ul>
-            <li>Lead end-to-end research: problem formulation, experimental design, implementation, and evaluation.</li>
-            <li><strong>Developer Lead for EAVE</strong> — measures, predicts, and optimizes energy, CO₂, and operational costs of AI/LLM workloads in data centers.</li>
-            <li>Drive publications for top-tier conferences and journals; contribute to manuscripts and reproducibility.</li>
-            <li>Represent DFKI at major European events: Hannover Messe, Berlin GreenTech Festival.</li>
-            <li>Support research proposal development and grant writing (e.g., BMBF).</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="timeline-meta">
-          <div class="timeline-period">2023 – 2024</div>
-          <div class="timeline-place">DFKI, Saarbrücken</div>
-        </div>
-        <div class="timeline-content">
-          <h3>Research Assistant</h3>
-          <p style="color:var(--muted); font-size:0.9rem;">German Research Center for Artificial Intelligence</p>
-          <ul>
-            <li>Contributed to prototype development, data processing, model training, benchmarking, and error analysis.</li>
-            <li>Co-authored publications across AI systems, LLM fidelity, sustainable computing, and healthcare.</li>
-            <li>Assisted in drafting research proposals for national funding calls.</li>
-            <li>Presented papers at academic conferences and workshops internationally.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PUBLICATIONS -->
-  <section id="publications">
-    <p class="section-label reveal">Research</p>
-    <h2 class="reveal">Selected <em>Publications</em></h2>
-    <div class="pub-grid">
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">CAiSE 2026</div>
-        <div class="pub-title">Towards Decision Support Systems for Cost-effective and Energy-efficient AI Operations in Data Centers</div>
-        <div class="pub-year">2026</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">2026</div>
-        <div class="pub-title">Safety-Constrained Contextual Bandit for Dynamic Power Management — 41.2% GPU energy reduction on Azure LLM inference traces</div>
-        <div class="pub-year">2026</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">CAiSE 2025</div>
-        <div class="pub-title">ESCADE: Energy-efficient Artificial Intelligence for Cost-effective and Sustainable Data Centers</div>
-        <div class="pub-year">2025</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">CAiSE 2025</div>
-        <div class="pub-title">FEDWELL: Life-Long Federated User and Mental Modeling for Health and Well-being</div>
-        <div class="pub-year">2025</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">Bundesgesundheitsblatt / SpringerNature 2025</div>
-        <div class="pub-title">AI in rehabilitation — application of artificial mental models for personalized medicine</div>
-        <div class="pub-year">2025</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">ICIS 2024</div>
-        <div class="pub-title">Semantic priming via knowledge graphs to analyze and treat language model's honest lies — DualEval method for hallucination detection</div>
-        <div class="pub-year">2024</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">NeurIPS 2024 · Women in ML Workshop</div>
-        <div class="pub-title">From Stateless to Adaptive: Dynamic Personalization for Conversational Language Models</div>
-        <div class="pub-year">2024</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">ECIS 2024</div>
-        <div class="pub-title">Plan generation from unstructured documents through transformer-based extraction of knowledge graphs (PlanKG)</div>
-        <div class="pub-year">2024</div>
-      </div>
-
-      <div class="pub-card reveal">
-        <div class="pub-venue">AAAI Summer Symposium 2023</div>
-        <div class="pub-title">SNOOP Method: Faithfulness of Text Summarizations for Single Nucleotide Polymorphisms</div>
-        <div class="pub-year">2023</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <p class="section-label reveal">Expertise</p>
-    <h2 class="reveal">Technical <em>Skills</em></h2>
-    <div class="skills-grid">
-      <div class="skill-group reveal">
-        <div class="skill-group-title">AI & ML</div>
-        <div class="skill-tags">
-          <span class="skill-tag">LLM Fine-tuning</span>
-          <span class="skill-tag">LLM Evaluation</span>
-          <span class="skill-tag">RAG</span>
-          <span class="skill-tag">Knowledge Graphs</span>
-          <span class="skill-tag">Quantization</span>
-          <span class="skill-tag">Distillation</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Frameworks</div>
-        <div class="skill-tags">
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">Keras</span>
-          <span class="skill-tag">Streamlit</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Languages</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Java</span>
-          <span class="skill-tag">C / C++</span>
-          <span class="skill-tag">R</span>
-          <span class="skill-tag">SQL</span>
-        </div>
-      </div>
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Research</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Sustainable AI</span>
-          <span class="skill-tag">Federated Learning</span>
-          <span class="skill-tag">NLP</span>
-          <span class="skill-tag">Grant Writing</span>
-          <span class="skill-tag">Reproducibility</span>
+        <div class="skill-card reveal">
+          <h3>Research</h3>
+          <div class="tags">
+            <span class="tag">Sustainable AI</span>
+            <span class="tag">Federated Learning</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Healthcare AI</span>
+            <span class="tag">Grant Writing</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label reveal">Contact</p>
-    <h2 class="reveal">Let's <em>connect</em></h2>
-    <p class="contact-sub reveal">Open to collaborations, speaking opportunities, and research discussions.</p>
-    <div class="contact-links reveal">
-      <a href="mailto:cicyagnes@gmail.com" class="btn btn-primary">cicyagnes@gmail.com</a>
-      <a href="https://linkedin.com/in/cicykagnes" class="btn btn-outline" target="_blank">LinkedIn</a>
-      <a href="https://github.com/cicykagnes" class="btn btn-outline" target="_blank">GitHub</a>
-    </div>
-  </section>
+    <section id="education">
+      <div class="section-heading reveal">
+        <span class="section-label">Education</span>
+        <h2>Academic <span class="gradient-text">foundation</span>.</h2>
+      </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2026 Cicy K. Agnes</span>
-    <span>Saarbrücken, Germany · (+49) 176 29176344</span>
-  </footer>
+      <div class="education-grid">
+        <article class="edu-card reveal">
+          <h3>Master's in Computer Science</h3>
+          <p>Universität des Saarlandes</p>
+          <p>2023 — 2026 · Germany</p>
+        </article>
+
+        <article class="edu-card reveal">
+          <h3>B.Tech in Computer Science and Engineering</h3>
+          <p>Cochin University of Science and Technology</p>
+          <p>2018 — 2022 · India</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-card reveal">
+        <span class="section-label">Contact</span>
+        <h2>Let’s build something <span class="gradient-text">brilliant</span>.</h2>
+        <p>
+          I am open to research collaborations, speaking opportunities, mentorship,
+          and conversations about sustainable AI, LLMs, and women in computer science.
+        </p>
+
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:cicyagnes@gmail.com">cicyagnes@gmail.com</a>
+          <a class="btn btn-outline" href="https://linkedin.com/in/cicykagnes" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-outline" href="https://github.com/cicykagnes" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Cicy K. Agnes · Saarbrücken, Germany · Women in Computer Science ✦
+    </footer>
+  </main>
 
   <script>
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
 
+    document.querySelectorAll(".reveal").forEach((element) => {
+      observer.observe(element);
+    });
+  </script>
 </body>
 </html>
