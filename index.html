@@ -665,13 +665,405 @@
     }
 
     @keyframes float {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-12px) rotate(8deg);
-      }
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(8deg); }
     }
+
+    /* ── GALLERY ────────────────────────────────────────────── */
+
+    .gallery-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(84, 173, 120, 0.45);
+      color: var(--hot-pink);
+      background: white;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(84, 173, 120, 0.28);
+    }
+
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 18px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 18px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 32px rgba(255, 79, 154, 0.08);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 52px rgba(255, 79, 154, 0.18);
+    }
+
+    /* ── multi-image carousel inside each card ── */
+    .gallery-slides {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffe1ef, #eee6ff);
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-slides.tall { aspect-ratio: 3/4; }
+    .gallery-slides.wide { aspect-ratio: 16/9; }
+    .gallery-slides.sq   { aspect-ratio: 1/1; }
+
+    .gallery-slides img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.38s ease, transform 0.4s ease;
+      transform: scale(1.03);
+    }
+
+    .gallery-slides img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* placeholder when no real image */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(255, 121, 176, 0.12), rgba(183, 156, 255, 0.14));
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .gallery-placeholder .ph-icon {
+      font-size: 2.4rem;
+    }
+
+    /* card-level prev/next arrows (only show when >1 image) */
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text);
+      transition: 0.18s ease;
+      line-height: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover .slide-arrow {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .slide-arrow.prev { left: 10px; }
+    .slide-arrow.next { right: 10px; }
+
+    .slide-arrow:hover {
+      background: white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+
+    /* dot indicators */
+    .slide-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .slide-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .slide-dot.active {
+      background: white;
+      transform: scale(1.25);
+    }
+
+    /* image count badge */
+    .img-count-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      background: rgba(51,34,53,0.62);
+      color: white;
+      font-family: "Space Mono", monospace;
+      font-size: 0.65rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+    }
+
+    .gallery-caption {
+      padding: 14px 18px 18px;
+    }
+
+    .gallery-caption .cap-event {
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .gallery-caption .cap-title {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.94rem;
+      line-height: 1.4;
+    }
+
+    .gallery-caption .cap-place {
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-top: 2px;
+    }
+
+    /* hidden when filtered out */
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    /* ── LIGHTBOX ───────────────────────────────────────────── */
+
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(51, 34, 53, 0.86);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .lightbox-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-box {
+      position: relative;
+      max-width: min(860px, 92vw);
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+      transform: scale(0.94);
+      transition: transform 0.28s ease;
+    }
+
+    .lightbox-overlay.open .lightbox-box {
+      transform: scale(1);
+    }
+
+    .lightbox-box img {
+      width: 100%;
+      max-height: 66vh;
+      object-fit: contain;
+      display: block;
+      background: linear-gradient(135deg, #ffe1ef, #eee6ff);
+    }
+
+    .lightbox-placeholder {
+      width: 100%;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      background: linear-gradient(135deg, #ffe1ef, #eee6ff);
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .lightbox-placeholder span { font-size: 3rem; }
+
+    .lightbox-info {
+      padding: 22px 28px 28px;
+    }
+
+    .lightbox-info .lb-event {
+      color: var(--hot-pink);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .lightbox-info .lb-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.45rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .lightbox-info .lb-place {
+      color: var(--muted);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text);
+      transition: 0.18s ease;
+      line-height: 1;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      background: white;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+    }
+
+    /* between-card arrows on the overlay sides */
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--text);
+      transition: 0.18s ease;
+      z-index: 10;
+    }
+
+    .lightbox-nav:hover {
+      background: white;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+
+    .lightbox-nav.prev { left: -60px; }
+    .lightbox-nav.next { right: -60px; }
+
+    /* within-card image arrows (inside the lightbox box, on the media) */
+    .lb-img-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--border);
+      display: none; /* shown by JS when multi-image */
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text);
+      transition: 0.18s ease;
+      z-index: 10;
+    }
+
+    .lb-img-nav:hover {
+      background: white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+
+    .lb-img-prev { left: 14px; }
+    .lb-img-next { right: 14px; }
+
+    /* photo counter "2 / 4" inside lightbox */
+    .lb-img-counter {
+      display: none; /* shown by JS */
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(51,34,53,0.62);
+      color: white;
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.07em;
+      z-index: 10;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
 
     @media (max-width: 920px) {
       .hero,
@@ -686,57 +1078,43 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      .hero {
-        padding-top: 120px;
-      }
+      .hero { padding-top: 120px; }
 
-      .portrait-wrap {
-        min-height: 390px;
-      }
+      .portrait-wrap { min-height: 390px; }
+      .portrait-wrap img { min-height: 390px; }
 
-      .portrait-wrap img {
-        min-height: 390px;
-      }
+      .gallery-masonry { columns: 2; }
     }
 
     @media (max-width: 680px) {
-      .nav-links {
-        display: none;
-      }
+      .nav-links { display: none; }
 
-      .page {
-        width: min(100% - 28px, 1180px);
-      }
+      .page { width: min(100% - 28px, 1180px); }
 
-      .hero {
-        gap: 34px;
-      }
+      .hero { gap: 34px; }
 
       .hero-actions,
-      .contact-links {
-        flex-direction: column;
-      }
+      .contact-links { flex-direction: column; }
 
-      .btn {
-        width: 100%;
-      }
+      .btn { width: 100%; }
 
       .stats-grid,
       .pub-grid,
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
+      .skills-grid { grid-template-columns: 1fr; }
 
-      section {
-        padding: 68px 0;
-      }
+      section { padding: 68px 0; }
 
       .about-copy,
       .women-cs,
       .timeline-item,
-      .contact-card {
-        padding: 24px;
-      }
+      .contact-card { padding: 24px; }
+
+      .gallery-masonry { columns: 1; }
+    }
+
+    @media (max-width: 860px) {
+      .lightbox-nav.prev { left: 6px; top: auto; bottom: 90px; transform: none; }
+      .lightbox-nav.next { right: 6px; top: auto; bottom: 90px; transform: none; }
     }
   </style>
 </head>
@@ -752,6 +1130,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -768,7 +1147,7 @@
         </h1>
         <p class="hero-subtitle">
   Currently, I am a <strong>Research Assistant at the NLP Lab, German Research Center for Artificial Intelligence (DFKI) Berlin</strong>,
-  and a <strong>Master’s Thesis Student at the Data Science and Applications Lab,
+  and a <strong>Master's Thesis Student at the Data Science and Applications Lab,
   DFKI Kaiserslautern</strong>.
 </p>
 
@@ -778,7 +1157,7 @@
 </p>
 
         <p class="hero-subtitle">
-          I am interested in natural language processing, particularly evaluation of large language models. I am currently working on better ranking of LLMs and improving LLM-as-Judges. 
+          I am interested in natural language processing, particularly evaluation of large language models. I am currently working on better ranking of LLMs and improving LLM-as-Judges.
           I have worked on <strong>LLM evaluation</strong>, <strong>knowledge graphs</strong>,
           <strong>sustainable AI</strong>, and <strong>energy-efficient data center operations</strong>.
         </p>
@@ -794,7 +1173,6 @@
       <div class="hero-card">
         <div class="portrait-wrap">
           <img src="assets/profile.jpg" alt="Portrait of Cicy K. Agnes">
-
 
           <div class="photo-placeholder">
             <span class="icon">👩‍💻</span>
@@ -835,10 +1213,6 @@
             <strong>knowledge graphs</strong>, <strong>federated learning</strong>, and personalized AI for
             healthcare and well-being.
           </p>
-
-          <p>
-            
-          </p>
         </div>
 
         <div class="reveal">
@@ -865,8 +1239,6 @@
           </div>
         </div>
       </div>
-
-     
     </section>
 
     <section id="experience">
@@ -876,8 +1248,6 @@
       </div>
 
       <div class="timeline">
-        
-        
         <article class="timeline-item reveal">
           <div>
             <p class="period">2024 — 2026</p>
@@ -893,10 +1263,7 @@
             </ul>
           </div>
         </article>
-        
-        
-        
-        
+
         <article class="timeline-item reveal">
           <div>
             <p class="period">2024 — 2026</p>
@@ -904,8 +1271,6 @@
           </div>
 
           <div class="timeline-content">
-            
-            
             <h3>Junior Researcher</h3>
             <p class="company">German Research Center for Artificial Intelligence, DFKI</p>
 
@@ -976,7 +1341,7 @@
 
         <article class="pub-card reveal">
           <p class="pub-venue">ICIS · 2024</p>
-          <p class="pub-title">Semantic Priming via Knowledge Graphs to Analyze and Treat Language Model’s Honest Lies</p>
+          <p class="pub-title">Semantic Priming via Knowledge Graphs to Analyze and Treat Language Model's Honest Lies</p>
           <p class="pub-note">Proposed DualEval for detecting and mitigating factual hallucinations in LLM outputs.</p>
         </article>
 
@@ -1000,6 +1365,226 @@
           <p class="pub-title">Spatial-Economic Analysis for Optimal Electric Vehicle Charging Station Placement</p>
         </article>
       </div>
+    </section>
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════╗
+    ║  GALLERY — HOW TO ADD YOUR PHOTOS                           ║
+    ╠══════════════════════════════════════════════════════════════╣
+    ║  1. Next to this HTML file, create the folder:              ║
+    ║       assets/gallery/                                       ║
+    ║                                                             ║
+    ║  2. Drop your images in that folder.                        ║
+    ║     :            ║
+    ║                                                             ║
+    ║     Hannover Messe                                          ║
+    ║       hannover-1.jpg, hannover-2.jpg, …                     ║
+    ║                                                             ║
+    ║     AAAI Singapore                                          ║
+    ║       aaai-sg-1.jpg, aaai-sg-2.jpg, …                      ║
+    ║                                                             ║
+    ║     NeurIPS Vancouver                                       ║
+    ║       neurips-1.jpg, neurips-2.jpg, …                       ║
+    ║                                                             ║
+    ║     GreenTech Berlin                                        ║
+    ║       greentech-1.jpg, greentech-2.jpg, …                   ║
+    ║                                                             ║
+    ║     ESCADE presentations                                    ║
+    ║       escade-1.jpg, escade-2.jpg, …                         ║
+    ║                                                             ║
+    ║  3. In the matching card below, uncomment each <img> line   ║
+    ║     and update the filename to match your actual file name. ║
+    ║                                                             ║
+    ║  4. Delete the <div class="gallery-placeholder"> block      ║
+    ║     once you have at least one real image in the card.      ║
+    ║                                                             ║
+    ║  5. Add as many <img> tags as you like — the ‹ › arrows     ║
+    ║     and dot indicators appear automatically when there are  ║
+    ║     2 or more images. Single photos show no arrows.         ║
+    ╚══════════════════════════════════════════════════════════════╝
+    -->
+    <section id="gallery">
+      <div class="section-heading reveal">
+        <span class="section-label">Gallery</span>
+        <h2>Conferences, workshops, <span class="gradient-text">and moments</span>.</h2>
+      </div>
+
+      <!-- Filter buttons -->
+      <div class="gallery-filter-bar reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="conference">Conferences</button>
+        <button class="filter-btn" data-filter="workshop">Workshops</button>
+        <button class="filter-btn" data-filter="event">Industry Events</button>
+      </div>
+
+      <!-- Masonry grid — 3 columns desktop, 2 tablet, 1 mobile -->
+      <div class="gallery-masonry" id="galleryGrid">
+
+        <!-- ══════════════════════════════════════════════════════
+             CARD 1 · Hannover Messe
+             Add photos: assets/gallery/hannover-1.jpg, hannover-2.jpg …
+             ══════════════════════════════════════════════════════ -->
+        <div class="gallery-item reveal" data-category="event">
+          <div class="gallery-slides wide">
+            <!-- ↓ uncomment & edit one line per photo -->
+            <!-- <img src="assets/gallery/hannover-1.jpg" alt="Hannover Messe — DFKI booth"> -->
+            <!-- <img src="assets/gallery/hannover-2.jpg" alt="Hannover Messe — live demo"> -->
+            <!-- <img src="assets/gallery/hannover-3.jpg" alt="Hannover Messe — team"> -->
+
+            <img src="assets/gallery/hannover1.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover2.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover3.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover4.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover5.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover6.jpg" alt="Hannover Messe — DFKI booth">
+            <img src="assets/gallery/hannover7.jpg" alt="Hannover Messe — DFKI booth">
+            <div class="gallery-placeholder">
+              <span class="ph-icon">🏭</span>
+              <span>Hannover Messe — add photos here</span>
+            </div>
+            <button class="slide-arrow prev" aria-label="Previous photo">‹</button>
+            <button class="slide-arrow next" aria-label="Next photo">›</button>
+            <div class="slide-dots"></div>
+            <div class="img-count-badge"></div>
+          </div>
+          <div class="gallery-caption">
+            <p class="cap-event">Industry Event · Hannover Messe</p>
+            <p class="cap-title">Exhibitor at Europe's Leading Industrial Innovation Fair</p>
+            <p class="cap-place">📍 Hannover, Germany</p>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             CARD 2 · AAAI Summer Symposium — Singapore
+             Add photos: assets/gallery/aaai-sg-1.jpg, aaai-sg-2.jpg …
+             ══════════════════════════════════════════════════════ -->
+        <div class="gallery-item reveal" data-category="conference">
+          <div class="gallery-slides tall">
+            <!-- ↓ uncomment & edit one line per photo -->
+            <!-- <img src="assets/gallery/aaai-sg-1.jpg" alt="AAAI Symposium Singapore — presentation"> -->
+            <!-- <img src="assets/gallery/aaai-sg-2.jpg" alt="AAAI Symposium Singapore — venue"> -->
+            <!-- <img src="assets/gallery/aaai-sg-3.jpg" alt="AAAI Symposium Singapore — poster"> -->
+             <img src="assets/gallery/sing1.jpg" alt="AAAI Symposium Singapore — poster">
+             <img src="assets/gallery/sing2.jpg" alt="AAAI Symposium Singapore — poster">
+             <img src="assets/gallery/sing3.jpg" alt="AAAI Symposium Singapore — poster">
+            <div class="gallery-placeholder">
+              <span class="ph-icon">🔬</span>
+              <span>AAAI Singapore — add photos here</span>
+            </div>
+            <button class="slide-arrow prev" aria-label="Previous photo">‹</button>
+            <button class="slide-arrow next" aria-label="Next photo">›</button>
+            <div class="slide-dots"></div>
+            <div class="img-count-badge"></div>
+          </div>
+          <div class="gallery-caption">
+            <p class="cap-event">Symposium · AAAI 2023</p>
+            <p class="cap-title">SNOOP Method for Faithfulness of Text Summarizations</p>
+            <p class="cap-place">📍 Singapore</p>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             CARD 3 · NeurIPS Women in ML Workshop — Vancouver
+             Add photos: assets/gallery/neurips-1.jpg, neurips-2.jpg …
+             ══════════════════════════════════════════════════════ -->
+        <div class="gallery-item reveal" data-category="workshop">
+          <div class="gallery-slides wide">
+            <!-- ↓ uncomment & edit one line per photo -->
+            <!-- <img src="assets/gallery/neurips-1.jpg" alt="NeurIPS WiML 2024 — workshop session"> -->
+            <!-- <img src="assets/gallery/neurips-2.jpg" alt="NeurIPS WiML 2024 — poster presentation"> -->
+            <!-- <img src="assets/gallery/neurips-3.jpg" alt="NeurIPS WiML 2024 — group photo"> -->
+            <!-- <img src="assets/gallery/neurips-4.jpg" alt="NeurIPS WiML 2024 — networking"> -->
+             <img src="assets/gallery/neurips1.jpg" alt="NeurIPS WiML 2024 — networking">
+             <img src="assets/gallery/neurips2.jpg" alt="NeurIPS WiML 2024 — networking">
+             <img src="assets/gallery/neurips3.jpg" alt="NeurIPS WiML 2024 — networking">
+             <img src="assets/gallery/neurips4.jpg" alt="NeurIPS WiML 2024 — networking">
+            <div class="gallery-placeholder">
+              <span class="ph-icon">🧠</span>
+              <span>NeurIPS WiML 2024 — add photos here</span>
+            </div>
+            <button class="slide-arrow prev" aria-label="Previous photo">‹</button>
+            <button class="slide-arrow next" aria-label="Next photo">›</button>
+            <div class="slide-dots"></div>
+            <div class="img-count-badge"></div>
+          </div>
+          <div class="gallery-caption">
+            <p class="cap-event"> NeurIPS 2024</p>
+            <p class="cap-title">Neural Information Processing Systems</p>
+            <p class="cap-place">📍 Vancouver, Canada</p>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             CARD 4 · GreenTech Festival Berlin
+             Add photos: assets/gallery/greentech-1.jpg, greentech-2.jpg …
+             ══════════════════════════════════════════════════════ -->
+        <div class="gallery-item reveal" data-category="event">
+          <div class="gallery-slides sq">
+            <!-- ↓ uncomment & edit one line per photo -->
+            <!-- <img src="assets/gallery/greentech-1.jpg" alt="GreenTech Festival — exhibition stand"> -->
+            <!-- <img src="assets/gallery/greentech-2.jpg" alt="GreenTech Festival — talk"> -->
+            <!-- <img src="assets/gallery/greentech-3.jpg" alt="GreenTech Festival — networking"> -->
+            <img src="assets/gallery/green1.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green2.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green3.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green4.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green5.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green6.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green7.jpg" alt="GreenTech Festival — exhibition stand">
+            <img src="assets/gallery/green8.jpg" alt="GreenTech Festival — exhibition stand">
+      
+            <div class="gallery-placeholder">
+              <span class="ph-icon">🌿</span>
+              <span>GreenTech Festival Berlin — add photos here</span>
+            </div>
+            <button class="slide-arrow prev" aria-label="Previous photo">‹</button>
+            <button class="slide-arrow next" aria-label="Next photo">›</button>
+            <div class="slide-dots"></div>
+            <div class="img-count-badge"></div>
+          </div>
+          <div class="gallery-caption">
+            <p class="cap-event">Event · GreenTech Festival 2024</p>
+            <p class="cap-title">Showcasing Sustainable AI Research at the GreenTech Festival</p>
+            <p class="cap-place">📍 Berlin, Germany</p>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             CARD 5 · Project ESCADE Presentations
+             Add photos: assets/gallery/escade-1.jpg, escade-2.jpg …
+             ══════════════════════════════════════════════════════ -->
+        <div class="gallery-item reveal" data-category="conference">
+          <div class="gallery-slides wide">
+            <!-- ↓ uncomment & edit one line per photo -->
+            <!-- <img src="assets/gallery/escade-1.jpg" alt="ESCADE — CAiSE 2025 presentation"> -->
+            <!-- <img src="assets/gallery/escade-2.jpg" alt="ESCADE — demo setup"> -->
+            <!-- <img src="assets/gallery/escade-3.jpg" alt="ESCADE — audience Q&amp;A"> -->
+            <!-- <img src="assets/gallery/escade-4.jpg" alt="ESCADE — team photo"> -->
+            <img src="assets/gallery/escade1.jpg" alt="ESCADE — team photo">
+            <img src="assets/gallery/escade2.jpg" alt="ESCADE — team photo">
+            <img src="assets/gallery/escade3.jpg" alt="ESCADE — team photo">
+            <img src="assets/gallery/escade4.jpg" alt="ESCADE — team photo">
+            <div class="gallery-placeholder">
+              <span class="ph-icon">⚡</span>
+              <span>Project ESCADE — add photos here</span>
+            </div>
+            <button class="slide-arrow prev" aria-label="Previous photo">‹</button>
+            <button class="slide-arrow next" aria-label="Next photo">›</button>
+            <div class="slide-dots"></div>
+            <div class="img-count-badge"></div>
+          </div>
+          <div class="gallery-caption">
+            <p class="cap-event">Conference · CAiSE 2025</p>
+            <p class="cap-title">ESCADE: Energy-efficient AI for Sustainable Data Centers</p>
+            <p class="cap-place">📍 Add location</p>
+          </div>
+        </div>
+
+      </div><!-- end gallery-masonry -->
+
+      <p class="reveal" style="margin-top:24px; color:var(--muted); font-family:'Space Mono',monospace; font-size:0.72rem; text-align:center; letter-spacing:0.07em;">
+        ✦ Save photos to <code style="background:rgba(255,121,176,0.1);padding:2px 7px;border-radius:6px;">assets/gallery/</code> then uncomment the matching &lt;img&gt; lines above ✦
+      </p>
     </section>
 
     <section id="skills">
@@ -1080,7 +1665,7 @@
     <section id="contact">
       <div class="contact-card reveal">
         <span class="section-label">Contact</span>
-        <h2>Let’s build something <span class="gradient-text">brilliant</span>.</h2>
+        <h2>Let's build something <span class="gradient-text">brilliant</span>.</h2>
         <p>
           I am open to research collaborations, speaking opportunities, mentorship,
           and conversations about sustainable AI, LLMs, and women in computer science.
@@ -1099,17 +1684,206 @@
     </footer>
   </main>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.12 });
+  <!-- ── LIGHTBOX ─────────────────────────────────────────── -->
+  <!--
+    Navigation in the lightbox:
+    ‹ › on the SIDES   = previous / next EVENT (different card)
+    ‹ › INSIDE the box = previous / next PHOTO within the same event
+    Keyboard: ← → = within-card images  |  ↑ ↓ = between cards  |  Esc = close
+  -->
+  <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <!-- between-card navigation -->
+    <button class="lightbox-nav prev" id="lbCardPrev" aria-label="Previous event">‹</button>
+    <div class="lightbox-box">
+      <button class="lightbox-close" id="lbClose" aria-label="Close lightbox">✕</button>
+      <!-- within-card image navigation (only visible when card has multiple photos) -->
+      <button class="lb-img-nav lb-img-prev" id="lbImgPrev" aria-label="Previous photo">‹</button>
+      <button class="lb-img-nav lb-img-next" id="lbImgNext" aria-label="Next photo">›</button>
+      <div id="lbMedia"></div>
+      <!-- photo counter e.g. "2 / 4" -->
+      <div class="lb-img-counter" id="lbCounter"></div>
+      <div class="lightbox-info">
+        <p class="lb-event" id="lbEvent"></p>
+        <p class="lb-title" id="lbTitle"></p>
+        <p class="lb-place" id="lbPlace"></p>
+      </div>
+    </div>
+    <button class="lightbox-nav next" id="lbCardNext" aria-label="Next event">›</button>
+  </div>
 
-    document.querySelectorAll(".reveal").forEach((element) => {
-      observer.observe(element);
+  <script>
+    /* ── Scroll reveal ──────────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    /* ── Per-card carousel ──────────────────────────────────── */
+    function initCarousel(card) {
+      const slides = card.querySelector(".gallery-slides");
+      if (!slides) return;
+
+      const imgs   = [...slides.querySelectorAll("img")];
+      const prev   = slides.querySelector(".slide-arrow.prev");
+      const next   = slides.querySelector(".slide-arrow.next");
+      const dotsEl = slides.querySelector(".slide-dots");
+      const badge  = slides.querySelector(".img-count-badge");
+      const n      = imgs.length;
+
+      if (n === 0) {
+        if (prev) prev.style.display = "none";
+        if (next) next.style.display = "none";
+        return;
+      }
+
+      let current = 0;
+      imgs[0].classList.add("active");
+
+      const dots = imgs.map((_, i) => {
+        const d = document.createElement("button");
+        d.className = "slide-dot" + (i === 0 ? " active" : "");
+        d.setAttribute("aria-label", "Photo " + (i + 1));
+        d.addEventListener("click", (e) => { e.stopPropagation(); goTo(i); });
+        dotsEl.appendChild(d);
+        return d;
+      });
+
+      if (n > 1 && badge) badge.textContent = "1 / " + n;
+      else if (badge) badge.style.display = "none";
+
+      if (n <= 1) {
+        if (prev) prev.style.display = "none";
+        if (next) next.style.display = "none";
+      }
+
+      function goTo(idx) {
+        imgs[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (idx + n) % n;
+        imgs[current].classList.add("active");
+        dots[current].classList.add("active");
+        if (badge && n > 1) badge.textContent = (current + 1) + " / " + n;
+      }
+
+      if (prev) prev.addEventListener("click", (e) => { e.stopPropagation(); goTo(current - 1); });
+      if (next) next.addEventListener("click", (e) => { e.stopPropagation(); goTo(current + 1); });
+
+      card._carousel = { imgs, goTo, getCurrent: () => current, total: n };
+    }
+
+    document.querySelectorAll(".gallery-item").forEach(initCarousel);
+
+    /* ── Gallery filter ─────────────────────────────────────── */
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const cat = btn.dataset.filter;
+        document.querySelectorAll(".gallery-item").forEach((item) => {
+          item.classList.toggle("hidden", cat !== "all" && item.dataset.category !== cat);
+        });
+      });
+    });
+
+    /* ── Lightbox ───────────────────────────────────────────── */
+    const overlay    = document.getElementById("lightbox");
+    const lbMedia    = document.getElementById("lbMedia");
+    const lbEvent    = document.getElementById("lbEvent");
+    const lbTitle    = document.getElementById("lbTitle");
+    const lbPlace    = document.getElementById("lbPlace");
+    const lbClose    = document.getElementById("lbClose");
+    const lbCounter  = document.getElementById("lbCounter");
+    const lbCardPrev = document.getElementById("lbCardPrev");
+    const lbCardNext = document.getElementById("lbCardNext");
+    const lbImgPrev  = document.getElementById("lbImgPrev");
+    const lbImgNext  = document.getElementById("lbImgNext");
+
+    let activeCard = null;
+    let lbImgIndex = 0;
+
+    function visibleCards() {
+      return [...document.querySelectorAll(".gallery-item:not(.hidden)")];
+    }
+
+    function updateLbImgNav() {
+      const c = activeCard && activeCard._carousel;
+      const multi = c && c.total > 1;
+      lbImgPrev.style.display = multi ? "grid" : "none";
+      lbImgNext.style.display = multi ? "grid" : "none";
+      lbCounter.style.display = multi ? "block" : "none";
+      if (multi) lbCounter.textContent = (lbImgIndex + 1) + " / " + c.total;
+    }
+
+    function renderLightbox(card, imgIdx) {
+      activeCard = card;
+      const c = card._carousel;
+      lbImgIndex = imgIdx !== undefined ? imgIdx : (c ? c.getCurrent() : 0);
+
+      const cap = card.querySelector(".gallery-caption");
+      lbEvent.textContent = cap ? cap.querySelector(".cap-event").textContent : "";
+      lbTitle.textContent = cap ? cap.querySelector(".cap-title").textContent : "";
+      lbPlace.textContent = cap ? cap.querySelector(".cap-place").textContent : "";
+
+      if (c && c.total > 0) {
+        lbImgIndex = Math.max(0, Math.min(lbImgIndex, c.total - 1));
+        lbMedia.innerHTML = `<img src="${c.imgs[lbImgIndex].src}" alt="${c.imgs[lbImgIndex].alt}">`;
+      } else {
+        const ph  = card.querySelector(".gallery-placeholder");
+        const ico = ph ? ph.querySelector(".ph-icon").textContent : "📷";
+        lbMedia.innerHTML = `<div class="lightbox-placeholder"><span>${ico}</span><p>Add your photos to see them here</p></div>`;
+      }
+
+      updateLbImgNav();
+    }
+
+    // Open lightbox when clicking a card (not on carousel arrows/dots)
+    document.querySelectorAll(".gallery-item").forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if (e.target.closest(".slide-arrow, .slide-dot")) return;
+        renderLightbox(card);
+        overlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    // Within-card image navigation (‹ › inside the lightbox box)
+    function lbStepImage(dir) {
+      if (!activeCard || !activeCard._carousel || activeCard._carousel.total <= 1) return;
+      const c = activeCard._carousel;
+      lbImgIndex = (lbImgIndex + dir + c.total) % c.total;
+      lbMedia.innerHTML = `<img src="${c.imgs[lbImgIndex].src}" alt="${c.imgs[lbImgIndex].alt}">`;
+      updateLbImgNav();
+    }
+
+    lbImgPrev.addEventListener("click", (e) => { e.stopPropagation(); lbStepImage(-1); });
+    lbImgNext.addEventListener("click", (e) => { e.stopPropagation(); lbStepImage(1); });
+
+    // Between-card navigation (‹ › on the overlay sides)
+    function lbStepCard(dir) {
+      const cards = visibleCards();
+      const idx   = cards.indexOf(activeCard);
+      if (idx === -1) return;
+      renderLightbox(cards[(idx + dir + cards.length) % cards.length], 0);
+    }
+
+    lbCardPrev.addEventListener("click", (e) => { e.stopPropagation(); lbStepCard(-1); });
+    lbCardNext.addEventListener("click", (e) => { e.stopPropagation(); lbStepCard(1); });
+
+    function closeLightbox() {
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    lbClose.addEventListener("click", closeLightbox);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeLightbox(); });
+
+    document.addEventListener("keydown", (e) => {
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape")     closeLightbox();
+      if (e.key === "ArrowLeft")  lbStepImage(-1);   // ← prev photo in event
+      if (e.key === "ArrowRight") lbStepImage(1);    // → next photo in event
+      if (e.key === "ArrowUp")    lbStepCard(-1);    // ↑ prev event
+      if (e.key === "ArrowDown")  lbStepCard(1);     // ↓ next event
     });
   </script>
 </body>
