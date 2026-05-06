@@ -706,9 +706,10 @@
     }
 
     .gallery-masonry {
-      columns: 3;
-      column-gap: 18px;
-    }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
 
     .gallery-item {
       break-inside: avoid;
