@@ -382,3 +382,29 @@ details.older > summary {
 
   .footer-inner .copy { margin-left: 0; width: 100%; }
 }
+
+
+
+/* ---------- Gallery ---------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.gallery figure { margin: 0; }
+.gallery a { display: block; overflow: hidden; border-radius: 6px; }
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+.gallery a:hover img { transform: scale(1.04); }
+.gallery figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+
+#lightbox { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; cursor: zoom-out; }
+#lightbox::backdrop { background: rgba(0, 0, 0, 0.85); }
+#lightbox img { display: block; max-width: 94vw; max-height: 84vh; margin: 0 auto; border-radius: 6px; }
+#lightbox p { color: #fff; text-align: center; font-size: 0.9rem; margin: 0.6rem 0 0; }
