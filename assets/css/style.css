@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Personal academic site — Cicy K. Agnes
+   Layout inspired by the AcademicPages / Minimal Mistakes look:
+   top masthead, sticky author sidebar on the left, content on the right.
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --text: #3d4144;
+  --muted: #7a8288;
+  --heading: #222629;
+  --border: #e6e8e9;
+  --link: #2f7f93;
+  --link-hover: #1e5a69;
+  --accent-bg: #f4f7f8;
+  --badge-bg: #eaf3f5;
+  --badge-text: #24687a;
+  --highlight: #b3261e;
+  --code-bg: #f7f8f9;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --page-width: 1080px;
+  --sidebar-width: 220px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16191c;
+    --text: #d3d7da;
+    --muted: #9aa2a8;
+    --heading: #f0f2f3;
+    --border: #2b3035;
+    --link: #6cc3d8;
+    --link-hover: #9ad8e7;
+    --accent-bg: #1d2125;
+    --badge-bg: #1f3238;
+    --badge-text: #8fd3e3;
+    --highlight: #ff8a80;
+    --code-bg: #1d2125;
+  }
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.65;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+
+h1, h2, h3 { color: var(--heading); line-height: 1.25; }
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 2.25rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+ul { padding-left: 1.25rem; }
+li { margin-bottom: 0.45rem; }
+
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.masthead-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--heading);
+}
+.site-title:hover { color: var(--heading); text-decoration: none; }
+
+.site-nav { display: flex; gap: 1.5rem; }
+
+.site-nav a {
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 0.2rem 0;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--heading); text-decoration: none; }
+.site-nav a[aria-current="page"] {
+  color: var(--heading);
+  border-bottom-color: var(--link);
+}
+
+/* ---------- Page layout ---------- */
+
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  gap: 3.5rem;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar {
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
+
+.avatar {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.author-name {
+  font-size: 1.25rem;
+  margin: 1rem 0 0.25rem;
+  border: 0;
+  padding: 0;
+}
+
+.author-bio {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.author-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.author-links li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.author-links .icon { width: 1.05em; color: var(--muted); }
+.author-links a { color: var(--text); }
+.author-links a:hover { color: var(--link); }
+
+/* ---------- Content ---------- */
+
+.content { min-width: 0; }
+
+.content p { margin: 0 0 1rem; }
+
+.lead { font-size: 1.02rem; }
+
+.news li { margin-bottom: 0.6rem; }
+
+.date {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--muted);
+  margin-right: 0.35rem;
+  white-space: nowrap;
+}
+
+.award { color: var(--highlight); font-weight: 600; }
+
+details.older {
+  margin-top: 0.5rem;
+}
+details.older > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 0.5rem;
+}
+
+.callout {
+  background: var(--accent-bg);
+  border-left: 4px solid var(--link);
+  padding: 0.9rem 1.1rem;
+  border-radius: 0 6px 6px 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/* ---------- Publications ---------- */
+
+.pub-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pub-year {
+  font-size: 1.05rem;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  border: 0;
+  padding: 0;
+}
+
+.pub {
+  padding: 0.9rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.pub:last-of-type { border-bottom: 0; }
+
+.pub-title {
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 0.15rem;
+}
+
+.pub-authors { font-size: 0.93rem; }
+.pub-authors .me { font-weight: 700; color: var(--heading); }
+
+.pub-venue {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.1rem;
+}
+
+.badge {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.05rem 0.45rem;
+  border-radius: 4px;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  margin-right: 0.4rem;
+  vertical-align: 0.08em;
+}
+
+.pub-tldr {
+  font-size: 0.9rem;
+  margin: 0.4rem 0 0;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  align-items: flex-start;
+}
+
+.pub-links a,
+.pub-links summary {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+}
+.pub-links summary::-webkit-details-marker { display: none; }
+.pub-links a:hover,
+.pub-links summary:hover {
+  border-color: var(--link);
+  color: var(--link);
+  text-decoration: none;
+}
+
+.pub-links details { flex-basis: 100%; }
+.pub-links details:not([open]) { flex-basis: auto; }
+.pub-links details summary { display: inline-block; }
+
+.bibtex {
+  margin: 0.5rem 0 0;
+  padding: 0.75rem 0.9rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  align-items: center;
+}
+
+.footer-inner .follow { font-weight: 700; color: var(--text); }
+.footer-inner a { color: var(--muted); display: inline-flex; align-items: center; gap: 0.35rem; }
+.footer-inner a:hover { color: var(--link); }
+.footer-inner .copy { margin-left: auto; }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 760px) {
+  .page {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .masthead-inner,
+  .footer-inner { padding-left: 1rem; padding-right: 1rem; }
+
+  .sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    column-gap: 1rem;
+    align-items: center;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .avatar { width: 96px; height: 96px; grid-row: span 2; }
+  .author-name { margin-top: 0; }
+  .author-bio { margin-bottom: 0; }
+
+  .author-links {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    margin-top: 1rem;
+  }
+  .author-links li { margin: 0; }
+
+  .footer-inner .copy { margin-left: 0; width: 100%; }
+}
