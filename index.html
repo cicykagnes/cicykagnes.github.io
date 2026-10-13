@@ -104,9 +104,48 @@
           <li><span class="date">[2023]</span> <b>SNOOP</b>, on the faithfulness of summaries of genetic variants, at the
             AAAI Summer Symposium.</li>
           <li><span class="date">[May'23]</span> Started my M.Sc. in Computer Science at Saarland University.</li>
+          <li><span class="date">[2022]</span> Complete my B.Tech. in Computer Science Engineering at Cochin University of Science and Technology.</li>
         </ul>
       </details>
+      
+      <h2 id="gallery">Gallery</h2>
+      <div class="gallery">
+        <figure>
+          <a href="assets/gallery/hannover-messe-2025.jpg"><img src="assets/gallery/hannover-messe-2025.jpg" alt="Presenting DFKI's live demonstrator at Hannover Messe" loading="lazy"></a>
+          <figcaption>Live demonstrator at Hannover Messe, 2025</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/gallery/neurips-wiml-2024.jpg"><img src="assets/gallery/neurips-wiml-2024.jpg" alt="Poster at the NeurIPS WiML Workshop" loading="lazy"></a>
+          <figcaption>WiML Workshop at NeurIPS, 2024</figcaption>
+        </figure>
+        <!-- add more <figure> blocks here -->
+      </div>
 
+      <!-- Full-size viewer. Without JavaScript, clicking a photo simply opens the image. -->
+      <dialog id="lightbox" aria-label="Photo viewer">
+        <img src="" alt="">
+        <p></p>
+      </dialog>
+      <script>
+        (function () {
+          var box = document.getElementById('lightbox');
+          var img = box.querySelector('img');
+          var cap = box.querySelector('p');
+          document.querySelectorAll('.gallery a').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+              if (!box.showModal) return;
+              e.preventDefault();
+              var caption = link.parentElement.querySelector('figcaption');
+              img.src = link.href;
+              img.alt = link.querySelector('img').alt;
+              cap.textContent = caption ? caption.textContent : '';
+              box.showModal();
+            });
+          });
+          box.addEventListener('click', function () { box.close(); });
+        })();
+      </script>
+      
       <h2>Collaborate?</h2>
       <div class="callout">
         <p>I'm applying for PhD positions in AI safety and robustness evaluation. If you work on LLM evaluation, LLM judges
